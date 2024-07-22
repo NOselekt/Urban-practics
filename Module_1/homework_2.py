@@ -1,4 +1,4 @@
- # -*- coding: cp1251 -*-
+
 
 amount_of_homeworks = 12
 amount_of_hours = 1.5
