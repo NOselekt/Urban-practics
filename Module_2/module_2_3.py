@@ -5,19 +5,8 @@ while i < length:
     if numbers[i] > 0:
         print(numbers[i])
         i += 1
-    else:
+        continue
+    elif numbers[i] == 0:
         i += 1
         continue
-
-
-
-
-
-
-
-
-'''
-for i in numbers:
-    if i > 0: print(i)
-    else: continue
-'''
+    break
