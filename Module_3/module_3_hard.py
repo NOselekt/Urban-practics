@@ -7,27 +7,24 @@ data_structure = [
 ]
 
 def struct_count(arg=None):
-    struct = []
     res = 0
-    if struct:
-        if isinstance(arg, dict):
-            struct = [[i, j] for i, j in arg.items()]
-        else:
-            struct = [i for i in arg]
-            for i in struct:
-                if isinstance(i, dict):
-                    for j, k in i.items():
-                        res += len(j)
-                        if isinstance(k, int) or isinstance(k, float):
-                            res += k
-                        elif isinstance(k, str):
-                            res += len(k)
-                elif isinstance(i, int) or isinstance(i, float):
-                    res += i
-                elif isinstance(i, str):
-                    res += len(i)
+    if isinstance(arg, int) or isinstance(arg, float):
+        res += arg
+    elif isinstance(arg, str):
+        res += len(arg)
+    else:
+        if arg:
+            struct = []
+            if isinstance(arg, dict):
+                struct = [[i, j] for i, j in arg.items()]
+            else:
+                struct = [i for i in arg]
+            for element in struct:
+                if isinstance(element, dict):
+                    for j, k in element.items():
+                        res += struct_count(j) + struct_count(k)
                 else:
-                    res += struct_count(i)
+                    res += struct_count(element)
     return res
 
 print(struct_count(data_structure))
