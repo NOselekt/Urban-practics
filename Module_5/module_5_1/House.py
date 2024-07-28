@@ -36,3 +36,46 @@ class House:
     def __str__(self):
         return f'The name: {self.name}, number of floors: {self.number_of_floors}.'
 
+
+    #Methods for 3rd exercise
+    def __eq__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors == other.number_of_floors
+        return False
+    def __add__(self, value):
+        if not isinstance(value, int):
+            return None
+        self.number_of_floors += value
+        return self
+    def __radd__(self, value):
+        if not isinstance(value, int):
+            return None
+        self.number_of_floors += value
+        return self
+    def __iadd__(self, value):
+        if not isinstance(value, int):
+            return None
+        self.number_of_floors += value
+        return self
+    def __lt__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors < other.number_of_floors
+        return False
+    def __gt__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors > other.number_of_floors
+        return False
+    def __le__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors <= other.number_of_floors
+        return False
+    def __ge__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors >= other.number_of_floors
+        return False
+    def __ne__(self, other):
+        if isinstance(other, House):
+            return self.number_of_floors != other.number_of_floors
+        return False
+
+
