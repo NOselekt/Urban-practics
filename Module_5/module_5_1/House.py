@@ -8,6 +8,7 @@ class House:
         self.name = name
         self.number_of_floors = number_of_floors
         self.current_floor = 1
+
     def go_to(self, new_floor):
         if new_floor > self.number_of_floors or new_floor < 1:
             print('There\'s no such floor!')
@@ -26,3 +27,12 @@ class House:
             print('You\'re already on this floor.\n')
         self.current_floor = new_floor
         return 0
+
+
+    #Methods for 2nd exercise
+    def __len__(self):
+        return self.number_of_floors
+
+    def __str__(self):
+        return f'The name: {self.name}, number of floors: {self.number_of_floors}.'
+
