@@ -14,11 +14,7 @@ def struct_count(arg=None):
         res += len(arg)
     else:
         if arg:
-            struct = []
-            if isinstance(arg, dict):
-                struct = [[i, j] for i, j in arg.items()]
-            else:
-                struct = [i for i in arg]
+            struct = [[i, j] for i, j in arg.items()] if isinstance(arg, dict) else [i for i in arg]
             for element in struct:
                 if isinstance(element, dict):
                     for j, k in element.items():
