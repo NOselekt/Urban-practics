@@ -1,9 +1,13 @@
 import time
 
 class House:
+    houses_history = []
     name = ''
     number_of_floors = 0
     current_floor = 0
+    def __new__(cls, *args, **kwargs):
+        cls.houses_history.append(args[0])
+        return super(House, cls).__new__(cls)
     def __init__(self, name, number_of_floors):
         self.name = name
         self.number_of_floors = number_of_floors
@@ -79,3 +83,6 @@ class House:
         return False
 
 
+    #Methods for 4th exercise
+    def __del__(self):
+        print(f'{self.name} was destroyed but it\'ll remain in history.')
