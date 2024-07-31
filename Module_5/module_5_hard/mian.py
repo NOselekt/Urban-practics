@@ -1,4 +1,4 @@
-from classes import *
+from classes import UrTube,  Video
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года!', 200)
@@ -24,3 +24,5 @@ print(ur.get_current_user())
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
+
+
