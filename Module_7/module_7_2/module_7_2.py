@@ -6,14 +6,14 @@ def custom_write(file_name: str, strings: list):
     file = open(file_name, 'a', encoding='utf-8')
     if file_viscera:
         file.write('\n')
-        file_viscera += '\n'
 
     string_positions = {}
 
     for string in strings:
         string_positions[(file_viscera.count('\n') + 1, file.tell())] = string
-        file_viscera += string + '\n'
         file.write(string + '\n')
+
+    file.close()
 
     return string_positions
 
