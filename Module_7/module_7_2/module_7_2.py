@@ -10,7 +10,8 @@ def custom_write(file_name: str, strings: list):
     string_positions = {}
 
     for string in strings:
-        string_positions[(file_viscera.count('\n') + 1, file.tell())] = string
+        file_viscera += string + '\n'
+        string_positions[(file_viscera.count('\n'), file.tell())] = string
         file.write(string + '\n')
 
     file.close()
