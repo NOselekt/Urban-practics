@@ -1,20 +1,17 @@
+from os.path import exists
+
 def custom_write(file_name: str, strings: list):
-    file = open(file_name, 'r', encoding='utf-8')
-    file_viscera = file.read()
-    file.close()
+    strings_count = 0
+    if exists(file_name):
+        with open(file_name, 'r', encoding='utf-8') as file:
+            strings_count = file.read().count('\n')
+    with open(file_name, 'a', encoding='utf-8') as file:
+        string_positions = {}
 
-    file = open(file_name, 'a', encoding='utf-8')
-    if file_viscera:
-        file.write('\n')
-
-    string_positions = {}
-
-    for string in strings:
-        file_viscera += string + '\n'
-        string_positions[(file_viscera.count('\n'), file.tell())] = string
-        file.write(string + '\n')
-
-    file.close()
+        for string in strings:
+            strings_count += 1
+            string_positions[(strings_count, file.tell())] = string
+            file.write(string + '\n')
 
     return string_positions
 
