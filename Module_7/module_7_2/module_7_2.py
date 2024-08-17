@@ -2,9 +2,11 @@ from os.path import exists
 
 def custom_write(file_name: str, strings: list):
     strings_count = 0
+
     if exists(file_name):
         with open(file_name, 'r', encoding='utf-8') as file:
             strings_count = file.read().count('\n')
+
     with open(file_name, 'a', encoding='utf-8') as file:
         string_positions = {}
 
