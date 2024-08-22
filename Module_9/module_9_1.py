@@ -1,7 +1,11 @@
-def apply_all_func(int_list: list, *functioins):
+from typing import Callable, TypeVar
+T = TypeVar('T')
+
+
+def apply_all_func(int_list: list[int, ...], *functions: Callable[[int], T]):
     try:
         result = {}
-        for func in functioins:
+        for func in functions:
             result[func.__name__] = func(int_list)
         return result
 
