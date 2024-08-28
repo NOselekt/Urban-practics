@@ -33,7 +33,7 @@ def time_record(func: Callable):
     return record
 
 @time_record
-def write_words(word_count, file_name):
+def write_words(word_count: int, file_name: str):
     word = WORDS_LIST[random.randint(0, len(WORDS_LIST) - 1)]
     words_counter = 0
 
