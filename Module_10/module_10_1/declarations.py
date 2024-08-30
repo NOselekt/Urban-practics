@@ -5,9 +5,10 @@ import threading
 import time
 import random
 
-WORDS_LIST = ['python', 'c++', 'c#', 'java', 'pascal', 'cobol', 'c', 'brainfuck']
+WORDS_LIST = ['python', 'c++', 'c#', 'java', 'pascal', 'cobol', 'c', 'brainfuck'] #список слов для записи
 
 
+#создаю подкласс класса Thread, который возвращает значение выполняемой функции
 class ReturningThread(threading.Thread):
     def __init__(self, group=None, target=None, name=None,
                  args=(), kwargs=None, *, daemon=None):
@@ -24,6 +25,7 @@ class ReturningThread(threading.Thread):
         return self._return
 
 
+#декоратор для подсчёта времени выполнения функции
 def time_record(func: Callable):
     def record(*args):
         start = time.time()
@@ -32,9 +34,10 @@ def time_record(func: Callable):
         return finish - start
     return record
 
+#функция, записывающая слова в файл
 @time_record
 def write_words(word_count: int, file_name: str):
-    word = WORDS_LIST[random.randint(0, len(WORDS_LIST) - 1)]
+    word = WORDS_LIST[random.randint(0, len(WORDS_LIST) - 1)] #выбираем случайное слово
     words_counter = 0
 
     with open(file_name, 'a+') as file:
