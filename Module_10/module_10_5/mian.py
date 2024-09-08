@@ -12,7 +12,7 @@ def read_info(name):
             all_data.append(string_)
             string_ = file.readline()[:-1]
 
-if '__main__' == __name__:
+if __name == '__main__':
     start = datetime.datetime.now()
 
     for i in FILES_NAMES:
