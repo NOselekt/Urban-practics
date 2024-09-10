@@ -3,6 +3,7 @@ from runner import Runner
 
 
 class TestRunner(unittest.TestCase):
+    
     def test_walk(self):
         test_runner = Runner('Ahmed')
         for _ in range(10):
