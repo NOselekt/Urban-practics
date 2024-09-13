@@ -1,8 +1,7 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from pprint import pprint
-import json
 import asyncio
+
 
 TOKEN = 'place your token here'
 BOT = Bot(token=TOKEN)
