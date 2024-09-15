@@ -16,12 +16,6 @@ MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчи
 WOMAN_NAMINGS = ['женщина','ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w']
 
 
-def get_data_from_state(data):
-    result = {}
-    for i in data:
-        result[i] = data[i]
-    return result
-
 class UserState(StatesGroup):
     sex = State()
     age = State()
