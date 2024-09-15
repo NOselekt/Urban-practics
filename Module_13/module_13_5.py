@@ -2,16 +2,16 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, Message
 from pprint import pprint
 import aiogram
-import aiogram.types
 import asyncio
 import logging
-
 
 TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
+
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm']
 WOMAN_NAMINGS = ['женщина','ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w']
 
@@ -46,28 +46,31 @@ class UserState(StatesGroup):
         return result
 
 
-
+keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+count_button = KeyboardButton(text='Рассчитать')
+information_button = KeyboardButton(text='Информация')
+keyboard.row(count_button, information_button)
 
 
 @DISPATCHER.message_handler(commands=['start'], state=UserState)
-async def start_message(message: aiogram.types.Message, state: FSMContext):
+async def start_message(message: Message, state: FSMContext):
     await state.reset_state()
     await message.answer('Привет! Я бот, помогающий твоему здоровью. Напиши команду /calories, чтобы я вычислил '
-                         'необходимую для тебя норму калорий.')
+                         'необходимую для тебя норму калорий.', reply_markup=keyboard)
 
 @DISPATCHER.message_handler(commands=['start'])
-async def start_message(message: aiogram.types.Message, state: FSMContext):
+async def start_message(message: Message, state: FSMContext):
     await state.reset_state()
     await message.answer('Привет! Я бот, помогающий твоему здоровью. Напиши команду /calories, чтобы я вычислил '
-                         'необходимую для тебя норму калорий.')
+                         'необходимую для тебя норму калорий.', reply_markup=keyboard)
 
-@DISPATCHER.message_handler(commands=['calories'])
+@DISPATCHER.message_handler(text=['Рассчитать'])
 async def set_sex(message: aiogram.types.Message):
     await message.answer('Введите ваш пол:')
     await UserState.sex.set()
 
 @DISPATCHER.message_handler(state=UserState.sex)
-async def set_age(message: aiogram.types.Message, state: FSMContext):
+async def set_age(message: Message, state: FSMContext):
     try:
         UserState.is_correct_sex(message.text)
     except ValueError:
@@ -81,7 +84,7 @@ async def set_age(message: aiogram.types.Message, state: FSMContext):
         await UserState.age.set()
 
 @DISPATCHER.message_handler(state=UserState.age)
-async def set_growth(message: aiogram.types.Message, state: FSMContext):
+async def set_growth(message: Message, state: FSMContext):
     try:
         UserState.is_correct_age(message.text)
     except ValueError:
@@ -93,7 +96,7 @@ async def set_growth(message: aiogram.types.Message, state: FSMContext):
         await UserState.growth.set()
 
 @DISPATCHER.message_handler(state=UserState.growth)
-async def set_weight(message: aiogram.types.Message, state:FSMContext):
+async def set_weight(message: Message, state:FSMContext):
     try:
         UserState.is_correct_age(message.text)
     except ValueError:
@@ -105,7 +108,7 @@ async def set_weight(message: aiogram.types.Message, state:FSMContext):
         await UserState.weight.set()
 
 @DISPATCHER.message_handler(state=UserState.weight)
-async def send_calories(message: aiogram.types.Message, state: FSMContext):
+async def send_calories(message: Message, state: FSMContext):
     try:
         UserState.is_correct_weight(message.text)
     except ValueError:
@@ -122,7 +125,7 @@ async def send_calories(message: aiogram.types.Message, state: FSMContext):
         await state.reset_state()
 
 @DISPATCHER.message_handler()
-async def all_messages(message: aiogram.types.Message):
+async def all_messages(message: Message):
     await message.answer('Введите команду /start, чтобы начать общение.')
 
 
