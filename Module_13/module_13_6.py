@@ -8,7 +8,7 @@ import aiogram
 import asyncio
 import logging
 
-TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
+TOKEN = 'place your token here'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
