@@ -8,12 +8,12 @@ import aiogram
 import asyncio
 import logging
 
-TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
+TOKEN = 'place your token here'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 
-MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm']
-WOMAN_NAMINGS = ['женщина','ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w']
+MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
+WOMAN_NAMINGS = ['женщина', 'ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w', 'female']
 
 
 class UserState(StatesGroup):
@@ -23,7 +23,7 @@ class UserState(StatesGroup):
     weight = State()
 
     def is_correct_sex(sex: str):
-        if sex in MAN_NAMINGS + WOMAN_NAMINGS:
+        if sex.lower() in MAN_NAMINGS + WOMAN_NAMINGS:
             return None
         raise ValueError
 
@@ -46,27 +46,33 @@ class UserState(StatesGroup):
         return result
 
 
-keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+keyboard_count = ReplyKeyboardMarkup(resize_keyboard=True)
 count_button = KeyboardButton(text='Рассчитать')
 information_button = KeyboardButton(text='Информация')
-keyboard.row(count_button, information_button)
+keyboard_count.row(count_button, information_button)
+
+keyboard_sex = ReplyKeyboardMarkup(resize_keyboard=True)
+male_button = KeyboardButton(text='Мужской')
+female_button = KeyboardButton(text='Женский')
+keyboard_sex.row(male_button, female_button)
 
 
 @DISPATCHER.message_handler(commands=['start'], state=UserState)
 async def start_message(message: Message, state: FSMContext):
     await state.reset_state()
     await message.answer('Привет! Я бот, помогающий твоему здоровью. Напиши команду /calories, чтобы я вычислил '
-                         'необходимую для тебя норму калорий.', reply_markup=keyboard)
+                         'необходимую для тебя норму калорий.', reply_markup=keyboard_count)
 
 @DISPATCHER.message_handler(commands=['start'])
 async def start_message(message: Message, state: FSMContext):
     await state.reset_state()
-    await message.answer('Привет! Я бот, помогающий твоему здоровью. Напиши команду /calories, чтобы я вычислил '
-                         'необходимую для тебя норму калорий.', reply_markup=keyboard)
+    await message.answer('Привет! Я бот, помогающий твоему здоровью. Напиши "Рассчитать" или нажми соответствующую '
+                         'кнопку на клавиатуре, чтобы я вычислил необходимую для тебя норму калорий.',
+                         reply_markup=keyboard_count)
 
 @DISPATCHER.message_handler(text=['Рассчитать'])
 async def set_sex(message: aiogram.types.Message):
-    await message.answer('Введите ваш пол:')
+    await message.answer('Введите ваш пол:', reply_markup=keyboard_sex)
     await UserState.sex.set()
 
 @DISPATCHER.message_handler(state=UserState.sex)
