@@ -8,7 +8,7 @@ import aiogram
 import asyncio
 import logging
 
-TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
+TOKEN = 'place your token here'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
@@ -94,9 +94,9 @@ async def main_menu(message: Message):
 
 @DISPATCHER.message_handler(text=["Купить"])
 async def get_buying_list(message: Message):
-    for i in range(1, 5):
-        with open("2.jpg", "rb") as image:
-            await message.answer_photo(photo=image, caption=f"Название: Product{i} | Описание: описание {i} | Цена: {i * 100}")
+    for i in range(1, 11):
+        with open(f"{i}.jpg", "rb") as image:
+            await message.answer_photo(photo=image, caption=f"Название: Протеин №{i}| Описание: {i * 100} г | Цена: {i * 100}₽")
     await message.answer("Выберите товар:", reply_markup=inline_keyboard_buying_list)
 
 @DISPATCHER.callback_query_handler(text=['formulas'])
