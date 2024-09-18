@@ -7,12 +7,18 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, Message, InlineKe
 import aiogram
 import asyncio
 import logging
+import crud_functions
+import os.path
 
-TOKEN = 'place your token here'
+
+TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
 WOMAN_NAMINGS = ['женщина', 'ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w', 'female']
+if not os.path.exists("initiate.db"):
+    crud_functions.initiate_db()
+PRODUCTS_DATA = crud_functions.get_all_products()
 
 
 class UserState(StatesGroup):
@@ -98,8 +104,9 @@ async def main_menu(message: Message):
 @DISPATCHER.message_handler(text=["Купить"])
 async def get_buying_list(message: Message):
     for i in range(1, 11):
-        with open(f"{i}.jpg", "rb") as image:
-            await message.answer_photo(photo=image, caption=f"Название: Протеин №{i}| Описание: {i * 100} г | Цена: {i * 100}₽")
+        product = PRODUCTS_DATA[i - 1]
+        with open(product[-1], "rb") as image:
+            await message.answer_photo(photo=image, caption=f"{product[1]} | {product[2]} | Цена: {product[3]}₽")
     await message.answer("Выберите товар:", reply_markup=inline_keyboard_buying_list)
 
 @DISPATCHER.callback_query_handler(text=['formulas'])
