@@ -8,7 +8,7 @@ import aiogram
 import asyncio
 import logging
 
-TOKEN = 'place your token here'
+TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
@@ -119,7 +119,7 @@ async def set_growth(message: Message, state: FSMContext):
         UserState.is_correct_age(message.text)
     except ValueError:
         await message.answer(f'Возраст введён некорректно. Пожалуйста, введите число не меньшее 1.')
-        await set_age(message)
+        await set_age(message, state)
     else:
         await state.update_data(age=float(message.text))
         await message.answer('Введите ваш рост:')
