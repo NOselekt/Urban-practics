@@ -11,13 +11,12 @@ import crud_functions
 import os.path
 
 
-TOKEN = '7316117657:AAEcOvVzsyarwbnDhdh42uIXSpXw8M1Rofw'
+TOKEN = 'place yor token here'
 BOT = Bot(token=TOKEN)
 DISPATCHER = Dispatcher(bot=BOT, storage=MemoryStorage())
 MAN_NAMINGS = ['мужчина', 'м', 'муж', 'мужской', 'мальчик', 'парень', 'man', 'm', 'male']
 WOMAN_NAMINGS = ['женщина', 'ж', 'жен', 'женский', 'девочка', 'девушка', 'woman', 'w', 'female']
-if not os.path.exists("initiate.db"):
-    crud_functions.initiate_db()
+crud_functions.initiate_db()
 PRODUCTS_DATA = crud_functions.get_all_products()
 
 
