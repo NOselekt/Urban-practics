@@ -36,6 +36,8 @@ class Tournament:
                     if max_speed == last_max_speed:
                         finishers[place - 1].append(participant)
                     else:
+                        # так как несколько человек могут бежать с одной скоростью, в finishers храним списки участников,
+                        # занявших одно и то же место, а не просто объекты бегунов
                         finishers[place] = [participant]
                         place += 1
                     self.participants.remove(participant)

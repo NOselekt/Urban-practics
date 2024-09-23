@@ -24,20 +24,22 @@ class UserState(StatesGroup):
     weight = State()
     age = State()
 
-
-    def is_correct_age(age: str):
+    @classmethod
+    def is_correct_age(self, age: str):
         result = float(age)
         if result <= 0:
             raise ValueError
         return result
 
-    def is_correct_growth(growth: str):
+    @classmethod
+    def is_correct_growth(self, growth: str):
         result = float(growth)
         if result <= 0:
             raise ValueError
         return result
 
-    def is_correct_weight(weight: str):
+    @classmethod
+    def is_correct_weight(self, weight: str):
         result = float(weight)
         if result <= 0:
             raise ValueError
@@ -48,14 +50,15 @@ class RegistrationState(StatesGroup):
     email = State()
     age = State()
 
-
-    def is_correct_username(username: str):
+    @classmethod
+    def is_correct_username(self, username: str):
         for char in username:
             if char.lower() not in "qwertyuiopasdfghjklzxcvbnm":
                 raise ValueError
         return None
 
-    def is_correct_email(email: str):
+    @classmethod
+    def is_correct_email(self, email: str):
         if email[0] == "@":
             raise ValueError
         for char in email:
@@ -67,7 +70,8 @@ class RegistrationState(StatesGroup):
             raise ValueError
         return None
 
-    def is_correct_age(age: str):
+    @classmethod
+    def is_correct_age(self, age: str):
         result = float(age)
         if result <= 0:
             raise ValueError

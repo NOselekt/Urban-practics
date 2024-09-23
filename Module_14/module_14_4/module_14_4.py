@@ -26,24 +26,28 @@ class UserState(StatesGroup):
     growth = State()
     weight = State()
 
+    @classmethod
     def is_correct_sex(sex: str):
         if sex.lower() in MAN_NAMINGS + WOMAN_NAMINGS:
             return None
         raise ValueError
 
-    def is_correct_age(age: str):
+    @classmethod
+    def is_correct_age(self, age: str):
         result = float(age)
         if result <= 0:
             raise ValueError
         return result
 
-    def is_correct_growth(growth: str):
+    @classmethod
+    def is_correct_growth(self, growth: str):
         result = float(growth)
         if result <= 0:
             raise ValueError
         return result
 
-    def is_correct_weight(weight: str):
+    @classmethod
+    def is_correct_weight(self, weight: str):
         result = float(weight)
         if result <= 0:
             raise ValueError
