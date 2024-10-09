@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 app = FastAPI()
-templates = Jinja2Templates(directory="C:/Users/admin/Projects/PracticsUrban/Rep/Module_16/module_16_5/templates")
+templates = Jinja2Templates(directory="templates")
 
 
 class User(BaseModel):
