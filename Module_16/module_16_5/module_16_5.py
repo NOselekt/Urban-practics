@@ -21,7 +21,6 @@ users: list[User] = []
 async def welcome(request: Request) -> HTMLResponse:
     return templates.TemplateResponse("users.html", {"request": request, "users": users})
 
-
 @app.get(path="/user/{user_id}", status_code=status.HTTP_200_OK)
 async def get_user(request: Request,
                    user_id: int = Path(ge=1, le=100, description="Enter User ID", example=2)) -> HTMLResponse:
