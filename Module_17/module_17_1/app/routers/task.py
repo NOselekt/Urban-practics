@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from Rep.Module_17.module_17_1.app.backend.database import Base
+from app.backend.database import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from .user import User
